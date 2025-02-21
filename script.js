@@ -13,6 +13,7 @@ function init() {
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
   spawnPiece();
+  document.addEventListener("keydown", handleKeyPress);
   gameLoop();
 }
 
@@ -21,46 +22,53 @@ function spawnPiece() {
   const shapes = [
     [[1, 1, 1, 1]], // I
     [[1, 1], [1, 1]], // O
-    [[1, 1, 1], [0, 1, 0]] // T
+    [[1, 1, 1], [0, 1, 0]], // T
+    [[1, 1, 1], [1, 0, 0]], // L
+    [[1, 1, 1], [0, 0, 1]] // J
   ];
   const colors = ["red", "blue", "yellow", "green"];
   currentPiece = {
     shape: shapes[Math.floor(Math.random() * shapes.length)],
     color: colors[Math.floor(Math.random() * colors.length)],
-    x: GRID_WIDTH / 2 - 1,
+    x: Math.floor(GRID_WIDTH / 2) - 1,
     y: 0
   };
-}
-
-// 게임 루프
-function gameLoop() {
-  update();
-  draw();
-  setTimeout(gameLoop, 500); // 0.5초마다 업데이트
-}
-
-// 블록 이동 및 충돌 감지
-function update() {
-  if (canMove(currentPiece, 0, 1)) {
-    currentPiece.y++;
-  } else {
-    placePiece();
-    checkMatches();
-    spawnPiece();
+  if (!canMove(currentPiece, 0, 0)) {
+    gameOver();
   }
 }
 
-// 보석 매칭 체크
-function checkMatches() {
-  // 가로, 세로, 대각선에서 3개 이상 연결된 보석 탐지
-  // 연결되면 제거하고 위 블록 떨어뜨리기
+// 키보드 입력 처리
+function handleKeyPress(event) {
+  switch (event.key) {
+    case "ArrowLeft":
+      if (canMove(currentPiece, -1, 0)) currentPiece.x--;
+      break;
+    case "ArrowRight":
+      if (canMove(currentPiece, 1, 0)) currentPiece.x++;
+      break;
+    case "ArrowDown":
+      if (canMove(currentPiece, 0, 1)) currentPiece.y++;
+      break;
+    case "ArrowUp":
+      rotatePiece();
+      break;
+  }
+  draw();
 }
 
-// 그리기
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBoard();
-  drawPiece(currentPiece);
-}
-
-window.onload = init;
+// 블록 회전
+function rotatePiece() {
+  const newShape = [];
+  const rows = currentPiece.shape.length;
+  const cols = currentPiece.shape[0].length;
+  for (let x = 0; x < cols; x++) {
+    newShape[x] = [];
+    for (let y = 0; y < rows; y++) {
+      newShape[x][rows - 1 - y] = currentPiece.shape[y][x];
+    }
+  }
+  const oldShape = currentPiece.shape;
+  currentPiece.shape = newShape;
+  if (!canMove(currentPiece, 0, 0)) {
+    currentPiece.shape

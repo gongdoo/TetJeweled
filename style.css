@@ -4,27 +4,78 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
+  background: #000; /* Solid black background to match the image */
   font-family: Arial, sans-serif;
 }
 
 .game-container {
   text-align: center;
+  border: 5px solid #000; /* Black border for the entire game area */
+  background: #fff; /* White background for the game container */
+  padding: 10px;
+  border-radius: 0; /* Remove rounding for a flat, clean look */
+  box-shadow: none; /* Remove shadow for simplicity */
+  width: 500px; /* Fixed width to match canvas */
 }
 
 h1 {
   font-size: 2em;
-  color: #333;
+  color: #666;
   margin-bottom: 10px;
 }
 
 #gameCanvas {
   border: 2px solid #333;
   background-color: #fff;
+  box-shadow: 5px 0 5px -2px rgb(96, 96, 96);
 }
 
-#score {
-  margin-top: 10px;
-  font-size: 1.5em;
+/* Game Over overlay style */
+#gameOverOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.gameOverContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px; /* Rounded corners for a modern look */
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 300px; /* Fixed width for consistency */
+}
+
+.gameOverContent h2 {
   color: #666;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.gameOverContent p {
+  margin: 5px 0;
+  color: #000;
+  font-size: 1.2em;
+}
+
+#newGameButton {
+  background-color: #0074D9; /* Blue button for visibility */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+#newGameButton:hover {
+  background-color: #0056b3; /* Darker blue on hover for interactivity */
 }

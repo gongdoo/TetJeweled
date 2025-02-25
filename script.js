@@ -421,13 +421,6 @@ function draw() {
   drawAnimations();
   drawNextPiece();
   drawGameInfo();
-  
-  ctx.fillStyle = "#000";
-  ctx.font = "16px Arial";
-  ctx.fillText("Controls:", 10, GRID_HEIGHT * BLOCK_SIZE + 30);
-  ctx.fillText("←: Left  →: Right", 10, GRID_HEIGHT * BLOCK_SIZE + 50);
-  ctx.fillText("↓: Down  ↑: Rotate", 10, GRID_HEIGHT * BLOCK_SIZE + 70);
-  ctx.fillText("Space: Drop", 10, GRID_HEIGHT * BLOCK_SIZE + 90);
 }
 
 function drawBoard() {
@@ -544,8 +537,13 @@ function drawGameInfo() {
   ctx.fillText(`Score: ${score}`, INFO_X, INFO_Y);
   ctx.fillText(`Time: ${gameTime}s`, INFO_X, INFO_Y + 25);
   ctx.fillText(`Level: ${level}`, INFO_X, INFO_Y + 50);
-  ctx.fillText(`Speed: ${dropSpeed}ms`, INFO_X, INFO_Y + 75); // Added to show drop speed
-  ctx.fillText(`isGameRunning: ${isGameRunning}`, INFO_X, INFO_Y + 100); 
+  // ctx.fillText(`Speed: ${dropSpeed}ms`, INFO_X, INFO_Y + 75); // Added to show drop speed
+  // ctx.fillText(`isGameRunning: ${isGameRunning}`, INFO_X, INFO_Y + 100); 
+
+  ctx.fillText("[Controls]", INFO_X, INFO_Y + 125);
+  ctx.fillText("←: Left  →: Right", INFO_X, INFO_Y + 150);
+  ctx.fillText("↓: Down  ↑: Rotate", INFO_X, INFO_Y + 175);
+  ctx.fillText("Space: Drop", INFO_X, INFO_Y + 200);
 }
 
 // Convert HEX color to RGB
